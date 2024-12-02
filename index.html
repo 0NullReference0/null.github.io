@@ -105,17 +105,17 @@
         <div class="tab-content active" id="tab1">
             <h2>Pop It Trading</h2>
             <p>loadstring(game:HttpGet("https://pastebin.com/raw/dhU9g1VA"))()</p>
-            <button class="click">Join Discord</button>
+            <button class="discord">Join Discord</button>
         </div>
         <div class="tab-content" id="tab2">
             <h2>KAT</h2>
             <p>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/0240b48024e9e60231e4640dceb0e5d1/raw/66d86e52fe579ccffc49e33482a9ec84b834eb77/kat"))()</p>
-            <button class="click">Join Discord</button>
+            <button class="discord">Join Discord</button>
         </div>
         <div class="tab-content" id="tab3">
             <h2>Jujutsu Shenanigans</h2>
             <p>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/deefdd78e74651a780cab0746f7337e7/raw/500df1bd208d8dbfc5d60f7757434b40df443f7f/jjs%20script"))()</p>
-            <button class="click">Join Discord</button>
+            <button class="discord">Join Discord</button>
         </div>
     </div>
 
@@ -123,7 +123,8 @@
         // JavaScript for Tabs
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
-
+        const discordButtons = document.querySelectorAll('.discord');
+        
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -131,6 +132,13 @@
 
                 tab.classList.add('active');
                 document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // Discord Button Click Event
+        discordButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                window.open("https://discord.gg/EpfaHPrAsH", "_blank");
             });
         });
     </script>
