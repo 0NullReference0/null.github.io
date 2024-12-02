@@ -84,6 +84,21 @@
             background: #5a73c9;
         }
 
+        .cwcheat {
+            background: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .cwcheat:hover {
+            background: #e65a50;
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from {
@@ -117,7 +132,7 @@
             <p>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/deefdd78e74651a780cab0746f7337e7/raw/500df1bd208d8dbfc5d60f7757434b40df443f7f/jjs%20script"))()</p>
             <button class="discord">Join Discord</button>
         </div>
-        <div class="tab-content" id="tab3">
+        <div class="tab-content" id="tab4">
             <h2>Content Warning</h2>
             <button class="cwcheat">Download</button>
             <button class="discord">Join Discord</button>
@@ -129,8 +144,8 @@
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
         const discordButtons = document.querySelectorAll('.discord');
-        const cw = document.querySelectorAll('.cwcheat');
-        
+        const cwButton = document.querySelector('.cwcheat');
+
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -147,10 +162,9 @@
                 window.open("https://discord.gg/EpfaHPrAsH", "_blank");
             });
         });
-         discordButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                window.open("https://nullclient.xyz/NullClient.zip", "_blank");
-            });
+
+        cwButton.addEventListener('click', () => {
+            window.open("https://nullclient.xyz/NullClient.zip", "_blank");
         });
     </script>
 </body>
