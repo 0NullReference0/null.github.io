@@ -3,20 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background from URL</title>
+    <title>Modern Tabs</title>
     <style>
-        body {
+        /* Base Styles */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            background-size: cover; /* Makes the image cover the entire screen */
-            background-repeat: no-repeat; /* Prevents tiling */
-            background-position: center center; /* Centers the image */
+            color: #fff;
+        }
+
+        /* Container */
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        /* Tabs Header */
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab.active {
+            background: #4caf50;
+            color: #fff;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Button */
+        .discord {
+            background: #7289da;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .discord:hover {
+            background: #5a73c9;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
-    <div class="content">
-        <button class="discord">discord</button>
-    </div>
 </head>
 <body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="tab1">Pop It Trading</div>
+            <div class="tab" data-tab="tab2">KAT</div>
+            <div class="tab" data-tab="tab3">Jujutsu Shenanigans</div>
+        </div>
+        <div class="tab-content active" id="tab1">
+            <h2>Pop It Trading</h2>
+            <p>Welcome to Pop It Trading! Explore a fun and colorful world where you can trade pop-it toys, collectibles, and more with friends.</p>
+            <button class="discord">Join Discord</button>
+        </div>
+        <div class="tab-content" id="tab2">
+            <h2>KAT</h2>
+            <p>Kill All Targets (KAT) is the ultimate competitive game! Sharpen your aim and prove your skills in this action-packed adventure.</p>
+            <button class="discord">Join Discord</button>
+        </div>
+        <div class="tab-content" id="tab3">
+            <h2>Jujutsu Shenanigans</h2>
+            <p>Delve into the world of Jujutsu Shenanigans, where cursed energy battles and epic adventures await. Team up or battle it out!</p>
+            <button class="discord">Join Discord</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Tabs
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
