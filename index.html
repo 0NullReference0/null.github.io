@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Null Client</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>NullClient</h1>
-    </header>
-
+    <title>Background from URL</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('https://example.com/image.jpg');
+            background-size: cover; /* Makes the image cover the entire screen */
+            background-repeat: no-repeat; /* Prevents tiling */
+            background-position: center center; /* Centers the image */
+        }
+    </style>
     <div class="content">
         <button class="discord">discord</button>
     </div>
-
-
-    <script src="script.js"></script>
+</head>
+<body>
 </body>
 </html>
