@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #000;  
-    color: #f0f0f0;  
+    background: url('Images/nullimage.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #f0f0f0;
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,14 +10,9 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url('Images/nullimage.png');
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat; 
 }
-
 h1 {
-    color: #00BFFF;  
+    color: #00BFFF; 
     text-align: center;
     margin-bottom: 20px;
 }
@@ -59,7 +55,7 @@ button {
 }
 
 .card {
-    background-color: #333;  
+    background-color: #333; 
     border-radius: 8px;
     padding: 20px;
     margin-top: 40px;
@@ -69,7 +65,7 @@ button {
 }
 
 .card h3 {
-    color: #00BFFF;  
+    color: #00BFFF; 
     margin-bottom: 15px;
 }
 
@@ -79,7 +75,7 @@ button {
 }
 
 .btn-card {
-    background-color: #28a745;  
+    background-color: #28a745; 
     color: #fff;
 }
 
