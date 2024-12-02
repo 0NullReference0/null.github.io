@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    alert('test');
-});
-primaryButton.addEventListener('discord', function() {
-    open("https://discord.gg/EpfaHPrAsH")
+
+    const discordButton = document.querySelector('.discord');
+
+    discordButton.addEventListener('click', function() {
+        window.open("https://discord.gg/EpfaHPrAsH", "_blank");
+    });
 });
