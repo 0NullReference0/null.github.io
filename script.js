@@ -1,8 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+const primaryButton = document.querySelector('.discord'); 
 
-    const discordButton = document.querySelector('.discord');
-
-    discordButton.addEventListener('click', function() {
-        window.open("https://discord.gg/EpfaHPrAsH", "_blank");
-    });
+primaryButton.addEventListener('click', function() {
+    alert("Joining");
+    window.open("https://discord.gg/EpfaHPrAsH");
 });
