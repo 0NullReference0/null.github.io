@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Tab Interface</title>
+    <title>Null Services</title>
     <style>
-        /* Basic styles */
         * {
             margin: 0;
             padding: 0;
@@ -91,40 +90,34 @@
         </div>
         <div class="tab-content" id="scripts">
             <h2>Scripts</h2>
-            <p>Here you can find scripts for various tasks.</p>
+            <p>-[[Pop It Trading]] loadstring(game:HttpGet("https://nullclient.xyz/pooptradingscriopt.txt"))() .</p>
+            <p>-[[Kat]] loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/0240b48024e9e60231e4640dceb0e5d1/raw/66d86e52fe579ccffc49e33482a9ec84b834eb77/kat"))()</p>
+            <p>-[[Jujutsu Kiasen Shenanigans]] loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/deefdd78e74651a780cab0746f7337e7/raw/500df1bd208d8dbfc5d60f7757434b40df443f7f/jjs%2520script"))()</p>
         </div>
         <div class="tab-content" id="download">
             <h2>Download</h2>
-            <p>Click below to download the files.</p>
-            <button onclick="alert('Download started!')">Download</button>
+            <button onclick="window.Open('nullclient.xyz/NullClient.zip')">Content Warning Cheat</button>
         </div>
         <div class="tab-content" id="premium">
-            <h2>Premium Features</h2>
-            <p>Sign up for premium access to unlock exclusive features!</p>
-            <button onclick="alert('Upgrade to Premium!')">Go Premium</button>
+            <h2>Premium</h2>
+            <button onclick="window.Open('https://discord.gg/EpfaHPrAsH')">Discord</button>
         </div>
-        <!-- YouTube tab content will be added dynamically -->
     </div>
 
     <script>
-        // References to tabs and container
         const tabsContainer = document.querySelector('.tabs');
         const contentsContainer = document.querySelector('.container');
 
-        // Existing tabs and contents
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
 
-        // Event listener for existing tabs
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                if (!tab.hasAttribute('data-tab')) return; // Skip dynamic tabs like "Add YouTube"
+                if (!tab.hasAttribute('data-tab')) return; 
 
-                // Remove active class from all tabs and contents
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
 
-                // Add active class to the clicked tab and corresponding content
                 tab.classList.add('active');
                 const targetTab = tab.getAttribute('data-tab');
                 const targetContent = document.getElementById(targetTab);
@@ -132,36 +125,30 @@
             });
         });
 
-        // Add YouTube tab dynamically
         const addYoutubeTab = document.getElementById('addYoutubeTab');
         addYoutubeTab.addEventListener('click', () => {
-            // Check if YouTube tab already exists
             if (document.getElementById('youtubeTab')) return;
 
-            // Create the new tab
             const newTab = document.createElement('div');
             newTab.className = 'tab';
             newTab.setAttribute('data-tab', 'youtubeTab');
             newTab.textContent = 'YouTube';
             tabsContainer.appendChild(newTab);
 
-            // Create the new tab content
             const newContent = document.createElement('div');
             newContent.className = 'tab-content';
             newContent.id = 'youtubeTab';
             newContent.innerHTML = `
                 <h2>Featured Video</h2>
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/watch?v=Psu_WZn8HOA" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/watch?v=Jaesl2cQY6Q&t=2s" allowfullscreen></iframe>
             `;
             contentsContainer.appendChild(newContent);
 
-            // Add event listener for the new tab
             newTab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
 
-                // Activate the new tab and content
                 newTab.classList.add('active');
                 newContent.classList.add('active');
             });
