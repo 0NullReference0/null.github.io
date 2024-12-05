@@ -23,6 +23,7 @@
             color: #fff;
         }
 
+        /* Container */
         .container {
             background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
@@ -67,12 +68,8 @@
             display: block;
         }
 
-        .discord,
-        .cwcheat,
-        .cashapp,
-        .paypal,
-        .robux {
-            display: inline-block;
+        /* Button Styles */
+        .button {
             background: #7289da;
             color: #fff;
             border: none;
@@ -83,11 +80,7 @@
             margin-top: 10px;
         }
 
-        .discord:hover,
-        .cwcheat:hover,
-        .cashapp:hover,
-        .paypal:hover,
-        .robux:hover {
+        .button:hover {
             background: #5a73c9;
         }
 
@@ -100,82 +93,60 @@
                 opacity: 1;
             }
         }
-
-        /* Responsive Styles */
-        @media (max-width: 600px) {
-            .container {
-                width: 100%;
-                margin: 10px;
-            }
-            .tabs {
-                flex-wrap: wrap;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="tabs">
-            <button class="tab active" data-tab="tab1">Pop It Trading</button>
-            <button class="tab" data-tab="tab2">KAT</button>
-            <button class="tab" data-tab="tab3">Jujutsu Shenanigans</button>
-            <button class="tab" data-tab="tab4">Content Warning</button>
-            <button class="tab" data-tab="tab5">Premium</button>
+            <div class="tab active" data-tab="tab1">Pop It Trading</div>
+            <div class="tab" data-tab="tab2">KAT</div>
+            <div class="tab" data-tab="tab3">Jujutsu Shenanigans</div>
+            <div class="tab" data-tab="tab4">Content Warning</div>
+            <div class="tab" data-tab="tab5">Premium</div>
         </div>
         <div class="tab-content active" id="tab1">
             <h2>Pop It Trading</h2>
             <p>loadstring(game:HttpGet("https://nullclient.xyz/pooptradingscriopt.txt"))()</p>
-            <button class="discord">Join Discord</button>
+            <button class="button">Join Discord</button>
         </div>
         <div class="tab-content" id="tab2">
             <h2>KAT</h2>
             <p>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/0240b48024e9e60231e4640dceb0e5d1/raw/66d86e52fe579ccffc49e33482a9ec84b834eb77/kat"))()</p>
-            <button class="discord">Join Discord</button>
+            <button class="button">Join Discord</button>
         </div>
         <div class="tab-content" id="tab3">
             <h2>Jujutsu Shenanigans</h2>
             <p>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/deefdd78e74651a780cab0746f7337e7/raw/500df1bd208d8dbfc5d60f7757434b40df443f7f/jjs%20script"))()</p>
-            <button class="discord">Join Discord</button>
+            <button class="button">Join Discord</button>
         </div>
         <div class="tab-content" id="tab4">
             <h2>Content Warning</h2>
-            <button class="cwcheat">Download</button>
-            <button class="discord">Join Discord</button>
+            <button class="button">Download</button>
+            <button class="button">Join Discord</button>
         </div>
         <div class="tab-content" id="tab5">
             <h2>Premium</h2>
-            <button class="robux">Pay with Robux</button>
-            <button class="cashapp">Pay with Cashapp</button>
-            <button class="paypal">Pay with PayPal</button>
+            <button class="button">Pay with Robux</button>
+            <button class="button">Pay with CashApp</button>
+            <button class="button">Pay with PayPal</button>
+            <button class="button">Join Discord</button>
         </div>
     </div>
 
     <script>
+        // Tab functionality
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
 
+                // Add active class to clicked tab and its corresponding content
                 tab.classList.add('active');
                 document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
-            });
-        });
-
-        const buttonActions = {
-            discord: "https://discord.gg/EpfaHPrAsH",
-            cwcheat: "https://nullclient.xyz/NullClient.zip",
-            robux: "https://www.roblox.com/game-pass/966615518/Amazing-GamePass",
-            paypal: "https://paypal.me/1Serpent49",
-            cashapp: "https://nullclient.xyz/cashapp.png",
-        };
-
-        document.querySelectorAll('.discord, .cwcheat, .robux, .paypal, .cashapp').forEach(button => {
-            button.addEventListener('click', () => {
-                const action = buttonActions[button.className.split(' ')[0]];
-                if (action) window.open(action, '_blank');
             });
         });
     </script>
