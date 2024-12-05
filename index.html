@@ -23,7 +23,6 @@
             color: #fff;
         }
 
-        /* Container */
         .container {
             background: rgba(0, 0, 0, 0.7);
             border-radius: 10px;
@@ -68,8 +67,12 @@
             display: block;
         }
 
-        /* Button */
-        .discord {
+        .discord,
+        .cwcheat,
+        .cashapp,
+        .paypal,
+        .robux {
+            display: inline-block;
             background: #7289da;
             color: #fff;
             border: none;
@@ -80,55 +83,12 @@
             margin-top: 10px;
         }
 
-        .discord:hover {
+        .discord:hover,
+        .cwcheat:hover,
+        .cashapp:hover,
+        .paypal:hover,
+        .robux:hover {
             background: #5a73c9;
-        }
-
-        .cwcheat {
-            background: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-        .cashapp {
-            background: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-        .paypal {
-            background: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-
-        .robux {
-            background: #ff6f61;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-        
-
-        .cwcheat:hover {
-            background: #e65a50;
         }
 
         /* Animations */
@@ -140,15 +100,27 @@
                 opacity: 1;
             }
         }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                margin: 10px;
+            }
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="tabs">
-            <div class="tab active" data-tab="tab1">Pop It Trading</div>
-            <div class="tab" data-tab="tab2">KAT</div>
-            <div class="tab" data-tab="tab3">Jujutsu Shenanigans</div>
-            <div class="tab" data-tab="tab4">Content Warning</div> <!-- Added this tab -->
+            <button class="tab active" data-tab="tab1">Pop It Trading</button>
+            <button class="tab" data-tab="tab2">KAT</button>
+            <button class="tab" data-tab="tab3">Jujutsu Shenanigans</button>
+            <button class="tab" data-tab="tab4">Content Warning</button>
+            <button class="tab" data-tab="tab5">Premium</button>
         </div>
         <div class="tab-content active" id="tab1">
             <h2>Pop It Trading</h2>
@@ -170,25 +142,18 @@
             <button class="cwcheat">Download</button>
             <button class="discord">Join Discord</button>
         </div>
-         <div class="tab-content" id="tab5">
+        <div class="tab-content" id="tab5">
             <h2>Premium</h2>
-            <button class="robux">Pay with robux</button>
-            <button class="cashapp">Pay with cashapp</button>
-            <button class="paypal">Pay with paypal</button>
-            <button class ="discord">Discord (must join)</button>
+            <button class="robux">Pay with Robux</button>
+            <button class="cashapp">Pay with Cashapp</button>
+            <button class="paypal">Pay with PayPal</button>
         </div>
     </div>
 
     <script>
-        // JavaScript for Tabs
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
-        const discordButtons = document.querySelectorAll('.discord');
-        const cwButton = document.querySelector('.cwcheat');
-        const cashapp = document.querySelector('.cashapp');
-        const robux = document.querySelector('.robux');
-        const paypal = document.querySelector('.paypal');
-        
+
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -199,25 +164,19 @@
             });
         });
 
-        // Discord Button Click Event
-        discordButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                window.open("https://discord.gg/EpfaHPrAsH", "_blank");
-            });
-        });
+        const buttonActions = {
+            discord: "https://discord.gg/EpfaHPrAsH",
+            cwcheat: "https://nullclient.xyz/NullClient.zip",
+            robux: "https://www.roblox.com/game-pass/966615518/Amazing-GamePass",
+            paypal: "https://paypal.me/1Serpent49",
+            cashapp: "https://nullclient.xyz/cashapp.png",
+        };
 
-        cwButton.addEventListener('click', () => {
-            window.open("https://nullclient.xyz/NullClient.zip", "_blank");
-        });
-        robux.addEventListener('click', () => {
-            window.open("https://www.roblox.com/game-pass/966615518/Amazing-GamePass", "_blank");
-        });
-        paypal.addEventListener('click', () => {
-            window.open("https://paypal.me/1Serpent49", "_blank");
-        });
-        cashapp.addEventListener('click', () => {
-            alert("Scan the image with your mobile phone.")
-            window.open("https://nullclient.xyz/cashapp.png", "_blank");
+        document.querySelectorAll('.discord, .cwcheat, .robux, .paypal, .cashapp').forEach(button => {
+            button.addEventListener('click', () => {
+                const action = buttonActions[button.className.split(' ')[0]];
+                if (action) window.open(action, '_blank');
+            });
         });
     </script>
 </body>
