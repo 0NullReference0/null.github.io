@@ -138,6 +138,13 @@
             <button class="cwcheat">Download</button>
             <button class="discord">Join Discord</button>
         </div>
+         <div class="tab-content" id="tab5">
+            <h2>Premium</h2>
+            <button class="robux">Pay with robux</button>
+            <button class="cashapp">Pay with cashapp</button>
+            <button class="paypal">Pay with paypal</button>
+            <button class ="discord">Discord (must join)</button>
+        </div>
     </div>
 
     <script>
@@ -146,7 +153,10 @@
         const contents = document.querySelectorAll('.tab-content');
         const discordButtons = document.querySelectorAll('.discord');
         const cwButton = document.querySelector('.cwcheat');
-
+        const cashapp = document.querySelector('.cashapp');
+        const robux = document.querySelector('.robux');
+        const paypal = document.querySelector('.paypal');
+        
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
@@ -166,6 +176,16 @@
 
         cwButton.addEventListener('click', () => {
             window.open("https://nullclient.xyz/NullClient.zip", "_blank");
+        });
+        robux.addEventListener('click', () => {
+            window.open("https://www.roblox.com/game-pass/966615518/Amazing-GamePass", "_blank");
+        });
+        paypal.addEventListener('click', () => {
+            window.open("https://paypal.me/1Serpent49", "_blank");
+        });
+        cashapp.addEventListener('click', () => {
+            alert("Scan the image with your mobile phone.")
+            window.open("https://nullclient.xyz/cashapp.png", "_blank");
         });
     </script>
 </body>
