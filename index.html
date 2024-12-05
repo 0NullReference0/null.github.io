@@ -32,6 +32,7 @@
 
         .tabs {
             display: flex;
+            flex-wrap: wrap;
             background-color: #444;
         }
 
@@ -68,6 +69,13 @@
             height: 315px;
             border: none;
         }
+
+        @media (max-width: 600px) {
+            .tab {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -95,24 +103,22 @@
         </div>
         <div class="tab-content" id="download">
             <h2>Download</h2>
-            <button onclick="window.Open('nullclient.xyz/NullClient.zip')">Content Warning Cheat</button>
+            <button onclick="window.open('https://nullclient.xyz/NullClient.zip', '_blank')">Content Warning Cheat</button>
         </div>
         <div class="tab-content" id="premium">
             <h2>Premium</h2>
-            <button onclick="window.Open('https://discord.gg/EpfaHPrAsH')">Discord</button>
+            <button onclick="window.open('https://discord.gg/EpfaHPrAsH', '_blank')">Discord</button>
         </div>
     </div>
 
     <script>
-        const tabsContainer = document.querySelector('.tabs');
-        const contentsContainer = document.querySelector('.container');
-
         const tabs = document.querySelectorAll('.tab');
         const contents = document.querySelectorAll('.tab-content');
+        const tabsContainer = document.querySelector('.tabs');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                if (!tab.hasAttribute('data-tab')) return; 
+                if (!tab.hasAttribute('data-tab')) return;
 
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
@@ -124,7 +130,9 @@
             });
         });
 
-        
+        const addYouTubeTab = document.getElementById('addYoutubeTab');
+        addYouTubeTab.addEventListener('click', () => {
+            if (document.querySelector('.tab[data-tab="youtubeTab"]')) return; // Prevent adding duplicate tab
 
             const newTab = document.createElement('div');
             newTab.className = 'tab';
@@ -137,10 +145,10 @@
             newContent.id = 'youtubeTab';
             newContent.innerHTML = `
                 <h2>--Videos--</h2>
-                <iframe src="https://www.youtube.com/watch?v=Psu_WZn8HOA" allowfullscreen></iframe>
-                <iframe src="https://www.youtube.com/watch?v=Jaesl2cQY6Q&t=2s" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/Psu_WZn8HOA" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/Jaesl2cQY6Q?start=2" allowfullscreen></iframe>
             `;
-            contentsContainer.appendChild(newContent);
+            document.querySelector('.container').appendChild(newContent);
 
             newTab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
