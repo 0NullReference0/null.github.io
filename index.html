@@ -124,9 +124,7 @@
             });
         });
 
-        const addYoutubeTab = document.getElementById('addYoutubeTab');
-        addYoutubeTab.addEventListener('click', () => {
-            if (document.getElementById('youtubeTab')) return;
+        
 
             const newTab = document.createElement('div');
             newTab.className = 'tab';
@@ -138,7 +136,7 @@
             newContent.className = 'tab-content';
             newContent.id = 'youtubeTab';
             newContent.innerHTML = `
-                <h2>Featured Video</h2>
+                <h2>--Videos--</h2>
                 <iframe src="https://www.youtube.com/watch?v=Psu_WZn8HOA" allowfullscreen></iframe>
                 <iframe src="https://www.youtube.com/watch?v=Jaesl2cQY6Q&t=2s" allowfullscreen></iframe>
             `;
