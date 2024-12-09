@@ -3,99 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Interaction with JavaScript</title>
+    <title>Edit GitHub File</title>
     <script>
-        // Use HTTPS URL if possible, to avoid mixed content issues
-        const baseURL = 'https://nullclient.xyz/api/data'; // Use HTTPS for security
+        // GitHub Repository Info
+        const repoOwner = 'your-username'; // Replace with your GitHub username
+        const repoName = 'your-repository'; // Replace with your repository name
+        const filePath = 'randomtext.txt'; // Path to the file you want to edit
+        const branch = 'main'; // The branch to edit the file in
+        const githubToken = 'your-personal-access-token'; // Your GitHub token (keep this secure)
 
-        // Function to handle GET request
-        function getData() {
-            fetch(baseURL)
-                .then(response => response.json())
-                .then(data => {
-                    console.log("GET response:", data);
-                    document.getElementById('response').innerText = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Error with GET request:', error);
-                    document.getElementById('response').innerText = 'Error with GET request: ' + error.message;
-                });
-        }
+        // GitHub API URL for the file
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
 
-        // Function to handle POST request
-        function postData() {
-            const data = {
-                name: "John",
-                age: 30
-            };
-
-            fetch(baseURL, {
-                method: 'POST',
+        // Function to get file contents
+        function getFileContent() {
+            fetch(apiUrl, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3.raw',
+                }
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("POST response:", data);
-                    document.getElementById('response').innerText = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Error with POST request:', error);
-                    document.getElementById('response').innerText = 'Error with POST request: ' + error.message;
-                });
+            .then(response => response.json())
+            .then(data => {
+                console.log("File content:", data);
+                document.getElementById('fileContent').value = data.content;
+            })
+            .catch(error => console.error('Error fetching file:', error));
         }
 
-        // Function to handle PUT request
-        function putData() {
-            const data = {
-                updated: "true"
-            };
-
-            fetch(baseURL, {
-                method: 'PUT',
+        // Function to update file content on GitHub
+        function updateFileContent() {
+            const newContent = document.getElementById('fileContent').value;
+            
+            // Get the current file's SHA (needed for updating the file)
+            fetch(apiUrl, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                    'Authorization': `token ${githubToken}`,
+                    'Accept': 'application/vnd.github.v3.raw',
+                }
             })
+            .then(response => response.json())
+            .then(data => {
+                const sha = data.sha; // Get the file's current SHA
+                
+                // Update the file with the new content
+                const updatedContent = {
+                    message: 'Update randomtext.txt',
+                    content: btoa(newContent), // Base64 encode the content
+                    sha: sha, // Provide the file's current SHA
+                    branch: branch,
+                };
+                
+                fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedContent),
+                })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("PUT response:", data);
-                    document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+                    console.log("File updated successfully:", data);
+                    alert('File updated successfully!');
                 })
-                .catch(error => {
-                    console.error('Error with PUT request:', error);
-                    document.getElementById('response').innerText = 'Error with PUT request: ' + error.message;
-                });
+                .catch(error => console.error('Error updating file:', error));
+            })
+            .catch(error => console.error('Error getting file SHA:', error));
         }
 
-        // Function to handle DELETE request
-        function deleteData() {
-            fetch(baseURL, {
-                method: 'DELETE'
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("DELETE response:", data);
-                    document.getElementById('response').innerText = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Error with DELETE request:', error);
-                    document.getElementById('response').innerText = 'Error with DELETE request: ' + error.message;
-                });
-        }
+        // Initialize by getting the file content when the page loads
+        window.onload = getFileContent;
     </script>
 </head>
 <body>
-    <h1>API Interaction with JavaScript</h1>
-    
-    <button onclick="getData()">GET Data</button>
-    <button onclick="postData()">POST Data</button>
-    <button onclick="putData()">PUT Data</button>
-    <button onclick="deleteData()">DELETE Data</button>
-    
-    <pre id="response"></pre>
+    <h1>Edit randomtext.txt on GitHub</h1>
+    <textarea id="fileContent" rows="10" cols="50"></textarea>
+    <br>
+    <button onclick="updateFileContent()">Update File</button>
 </body>
 </html>
