@@ -5,73 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit GitHub File</title>
     <script>
-        // GitHub Repository Info
-        const repoOwner = 'your-username'; // Replace with your GitHub username
-        const repoName = 'your-repository'; // Replace with your repository name
-        const filePath = 'randomtext.txt'; // Path to the file you want to edit
-        const branch = 'main'; // The branch to edit the file in
-        const githubToken = 'your-personal-access-token'; // Your GitHub token (keep this secure)
-
-        // GitHub API URL for the file
-        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
-
-        // Function to get file contents
+        // Function to get file content
         function getFileContent() {
-            fetch(apiUrl, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `token ${githubToken}`,
-                    'Accept': 'application/vnd.github.v3.raw',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("File content:", data);
-                document.getElementById('fileContent').value = data.content;
-            })
-            .catch(error => console.error('Error fetching file:', error));
-        }
-
-        // Function to update file content on GitHub
-        function updateFileContent() {
-            const newContent = document.getElementById('fileContent').value;
-            
-            // Get the current file's SHA (needed for updating the file)
-            fetch(apiUrl, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `token ${githubToken}`,
-                    'Accept': 'application/vnd.github.v3.raw',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const sha = data.sha; // Get the file's current SHA
-                
-                // Update the file with the new content
-                const updatedContent = {
-                    message: 'Update randomtext.txt',
-                    content: btoa(newContent), // Base64 encode the content
-                    sha: sha, // Provide the file's current SHA
-                    branch: branch,
-                };
-                
-                fetch(apiUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${githubToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(updatedContent),
-                })
+            fetch('/get-file-content')  // You can keep this if you're handling fetching from the same server
                 .then(response => response.json())
                 .then(data => {
-                    console.log("File updated successfully:", data);
-                    alert('File updated successfully!');
+                    console.log("File content:", data);
+                    document.getElementById('fileContent').value = data.content;
                 })
-                .catch(error => console.error('Error updating file:', error));
+                .catch(error => console.error('Error fetching file:', error));
+        }
+
+        // Function to update file content by calling the backend
+        function updateFileContent() {
+            const newContent = document.getElementById('fileContent').value;
+
+            fetch('https://nullclient.xyz/update-file', {  // Your live backend URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ content: newContent })
             })
-            .catch(error => console.error('Error getting file SHA:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('File updated successfully!');
+                } else {
+                    alert('Error updating file!');
+                }
+            })
+            .catch(error => console.error('Error updating file:', error));
         }
 
         // Initialize by getting the file content when the page loads
