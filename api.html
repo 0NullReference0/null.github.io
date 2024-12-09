@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Interaction with JavaScript</title>
     <script>
-        const baseURL = 'http://localhost:8080/api/data';
+        // Use HTTPS URL if possible, to avoid mixed content issues
+        const baseURL = 'https://nullclient.xyz/api/data'; // Use HTTPS for security
 
         // Function to handle GET request
         function getData() {
@@ -15,7 +16,10 @@
                     console.log("GET response:", data);
                     document.getElementById('response').innerText = JSON.stringify(data, null, 2);
                 })
-                .catch(error => console.error('Error with GET request:', error));
+                .catch(error => {
+                    console.error('Error with GET request:', error);
+                    document.getElementById('response').innerText = 'Error with GET request: ' + error.message;
+                });
         }
 
         // Function to handle POST request
@@ -37,7 +41,10 @@
                     console.log("POST response:", data);
                     document.getElementById('response').innerText = JSON.stringify(data, null, 2);
                 })
-                .catch(error => console.error('Error with POST request:', error));
+                .catch(error => {
+                    console.error('Error with POST request:', error);
+                    document.getElementById('response').innerText = 'Error with POST request: ' + error.message;
+                });
         }
 
         // Function to handle PUT request
@@ -58,7 +65,10 @@
                     console.log("PUT response:", data);
                     document.getElementById('response').innerText = JSON.stringify(data, null, 2);
                 })
-                .catch(error => console.error('Error with PUT request:', error));
+                .catch(error => {
+                    console.error('Error with PUT request:', error);
+                    document.getElementById('response').innerText = 'Error with PUT request: ' + error.message;
+                });
         }
 
         // Function to handle DELETE request
@@ -71,7 +81,10 @@
                     console.log("DELETE response:", data);
                     document.getElementById('response').innerText = JSON.stringify(data, null, 2);
                 })
-                .catch(error => console.error('Error with DELETE request:', error));
+                .catch(error => {
+                    console.error('Error with DELETE request:', error);
+                    document.getElementById('response').innerText = 'Error with DELETE request: ' + error.message;
+                });
         }
     </script>
 </head>
