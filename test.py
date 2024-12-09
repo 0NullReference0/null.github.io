@@ -1,48 +1,67 @@
-from flask import Flask, request, jsonify
-import os
+import json
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-app = Flask(__name__)
+class SimpleAPIHandler(BaseHTTPRequestHandler):
 
-TEXT_FILE_PATH = "randomtext.txt"
+    def _send_response(self, status_code, data=None):
+        # Send HTTP response header
+        self.send_response(status_code)
+        self.send_header("Content-type", "application/json")
+        self.end_headers()
+        
+        if data:
+            self.wfile.write(json.dumps(data).encode("utf-8"))
 
-if not os.path.exists(TEXT_FILE_PATH):
-    with open(TEXT_FILE_PATH, "w") as file:
-        file.write("")  
+    def do_GET(self):
+        """Handle GET requests"""
+        if self.path == "/api/data":
+            data = {"message": "This is a GET response from the API."}
+            self._send_response(200, data)
+        else:
+            self._send_response(404, {"error": "Not found"})
 
-@app.route('/file', methods=['GET'])
-def read_file():
-    try:
-        with open(TEXT_FILE_PATH, 'r') as file:
-            content = file.read()
-        return jsonify({'content': content}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    def do_POST(self):
+        """Handle POST requests"""
+        if self.path == "/api/data":
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            try:
+                json_data = json.loads(post_data)
+                response_data = {"received_data": json_data}
+                self._send_response(200, response_data)
+            except json.JSONDecodeError:
+                self._send_response(400, {"error": "Invalid JSON"})
+        else:
+            self._send_response(404, {"error": "Not found"})
 
-@app.route('/file', methods=['POST'])
-def update_file():
-    try:
-        new_content = request.json.get('content') 
-        if not new_content:
-            return jsonify({'error': 'Content is required'}), 400
+    def do_PUT(self):
+        """Handle PUT requests"""
+        if self.path == "/api/data":
+            content_length = int(self.headers['Content-Length'])
+            put_data = self.rfile.read(content_length)
+            try:
+                json_data = json.loads(put_data)
+                # Process PUT data (here, just echoing back)
+                response_data = {"updated_data": json_data}
+                self._send_response(200, response_data)
+            except json.JSONDecodeError:
+                self._send_response(400, {"error": "Invalid JSON"})
+        else:
+            self._send_response(404, {"error": "Not found"})
 
-        with open(TEXT_FILE_PATH, 'w') as file:
-            file.write(new_content) 
-        return jsonify({'message': 'File updated successfully'}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    def do_DELETE(self):
+        """Handle DELETE requests"""
+        if self.path == "/api/data":
+            data = {"message": "Resource has been deleted."}
+            self._send_response(200, data)
+        else:
+            self._send_response(404, {"error": "Not found"})
 
-@app.route('/file/append', methods=['POST'])
-def append_to_file():
-    try:
-        new_content = request.json.get('content')
-        if not new_content:
-            return jsonify({'error': 'Content is required'}), 400
-
-        with open(TEXT_FILE_PATH, 'a') as file:
-            file.write(new_content + "\n") 
-        return jsonify({'message': 'Content appended successfully'}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+def run(server_class=HTTPServer, handler_class=SimpleAPIHandler, port=8080):
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    print(f"Starting simple API on port {port}...")
+    httpd.serve_forever()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    run()
