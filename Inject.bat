@@ -1,0 +1,1 @@
+smi.exe inject -p "Gorilla Tag" -a "NullClient.dll" -n "NullClient" -c "Loader" -m "Load"
