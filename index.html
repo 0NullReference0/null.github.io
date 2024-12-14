@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Null Services</title>
+    <title>Null Market</title>
     <style>
         * {
             margin: 0;
@@ -13,121 +13,96 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            color: #111010;
+            color: #fff;
+            background-color: #111;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
             min-height: 100vh;
-            padding: 20px;
-            background-color:#4D4D4D;
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
         }
 
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background-color: #575757;
+            background-color: #B30000;
             padding: 20px 0;
             text-align: center;
             color: #fff;
             font-size: 28px;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-            animation: moveUpDown 4s ease-in-out infinite;
-        }
-
-        @keyframes moveUpDown {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0);
-            }
+            z-index: 10;
         }
 
         .container {
+            display: flex;
             width: 100%;
             max-width: 1000px;
-            background-color: #000000;
+            background-color: #000;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
             position: relative;
             z-index: 1;
+            margin-top: 80px;
         }
 
         .tabs {
-            display: flex;
-            background: #5a5a5a;
-            border-bottom: 2px solid #444;
-            justify-content: space-around;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 200px;
+            background: #B30000;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 5;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
         }
 
         .tab {
-            padding: 18px 0;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             color: #fffefe;
             font-size: 18px;
             font-weight: 500;
             transition: all 0.3s ease;
-            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 5px;
         }
 
         .tab:hover {
-            background-color: #3e3e3e;
+            background-color: #9c0000;
             transform: scale(1.05);
         }
 
         .tab.active {
-            background-color: #000000;
-            border-bottom: 3px solid #fff;
-            font-weight: bold;
-        }
-
-        .tab[data-tab="premium"] {
-            animation: purplePulsate 2s infinite ease-in-out;
-            color: #000000;
-        }
-
-        @keyframes purplePulsate {
-            0% {
-                background-color: #FBFE5E;
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                background-color: #FBFE5E;
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-            100% {
-                background-color: #FBFE5E;
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .tab.active[data-tab="premium"] {
-            background-color: #FBFE5E;
-            border-bottom: 3px solid #fff;
+            background-color: #800000;
+            border-left: 5px solid #FF4C4C;
             font-weight: bold;
         }
 
         .tab-content {
-            display: none;
+            flex-grow: 1;
             padding: 30px;
-            background-color: #ffffff;
+            background-color: #222;
+            border-radius: 8px;
+            box-sizing: border-box;
+            display: none;
+            margin-left: 220px;
         }
 
         .tab-content.active {
             display: block;
+        }
+
+        .tab-content#reviews {
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         iframe {
@@ -141,7 +116,7 @@
         button {
             padding: 12px 25px;
             font-size: 16px;
-            background-color: #444;
+            background-color: #B30000;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -150,18 +125,18 @@
         }
 
         button:hover {
-            background-color: #555;
+            background-color: #9c0000;
             transform: translateY(-2px);
         }
 
         pre {
-            background-color: #f5f5f5;
+            background-color: #333;
             border-radius: 8px;
             padding: 15px;
             overflow-x: auto;
             word-wrap: normal;
             margin-bottom: 20px;
-            color: #333;
+            color: #fff;
             width: 100%;
             box-sizing: border-box;
         }
@@ -169,7 +144,7 @@
         code {
             font-size: 16px;
             font-family: 'Courier New', Courier, monospace;
-            color: black;
+            color: white;
         }
 
         .copy-btn {
@@ -195,30 +170,47 @@
         .script-title {
             font-size: 18px;
             font-weight: bold;
-            color: #000000;
+            color: #fff;
             margin-bottom: 10px;
         }
 
-        .paint-effect {
+        .rain {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgba(128, 0, 128, 0.6);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            transform: translate(-50%, -50%);
-            animation: paintAnim 1s ease-out forwards;
+            z-index: -1;
         }
 
-        @keyframes paintAnim {
+        .raindrop {
+            position: absolute;
+            top: -10px;
+            width: 2px;
+            height: 10px;
+            background-color: red;
+            opacity: 0.5;
+            animation: fall 1s linear infinite;
+        }
+
+        @keyframes fall {
             0% {
-                transform: scale(0) translate(-50%, -50%);
-                opacity: 1;
+                top: -10px;
+                opacity: 0.5;
             }
             100% {
-                transform: scale(2) translate(-50%, -50%);
-                opacity: 0;
+                top: 100vh;
+                opacity: 0.1;
             }
+        }
+
+        .market-text {
+            font-size: 100px;
+            font-weight: bold;
+            color: #FF0000;
+            text-align: center;
+            margin-top: 20px;
         }
 
     </style>
@@ -228,13 +220,16 @@
         Null Services
     </header>
 
+    <div class="rain"></div>
+
     <div class="container">
         <div class="tabs">
             <div class="tab active" data-tab="home">Home</div>
             <div class="tab" data-tab="scripts">Scripts</div>
             <div class="tab" data-tab="download">Download</div>
-            <div class="tab" data-tab="premium">Premium</div>
-            <div class="tab" data-tab="youtubeTab">Reviews</div>
+            <div class="tab premium" data-tab="premium">Premium</div>
+            <div class="tab" data-tab="reviews">Reviews</div>
+            <div class="tab" data-tab="market">Market</div>
         </div>
 
         <div class="tab-content active" id="home">
@@ -268,54 +263,59 @@
             <h2>Premium</h2>
             <button onclick="window.open('https://discord.gg/EpfaHPrAsH')">Join Our Discord</button>
         </div>
-        <div class="tab-content" id="youtubeTab">
+        <div class="tab-content" id="reviews">
             <h2>Reviews</h2>
             <iframe src="https://www.youtube.com/embed/Psu_WZn8HOA" allowfullscreen></iframe>
             <iframe src="https://www.youtube.com/embed/Jaesl2cQY6Q" allowfullscreen></iframe>
             <h2>Content Warning</h2>
             <iframe src="https://www.youtube.com/embed/2-wlQm9ccRo" allowfullscreen></iframe>
         </div>
-
+        <div class="tab-content" id="market">
+            <h2 class="market-text">Market Coming Soon</h2>
+        </div>
     </div>
 
     <script>
         const tabs = document.querySelectorAll('.tab');
-        const contents = document.querySelectorAll('.tab-content');
+        const tabContents = document.querySelectorAll('.tab-content');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const targetTab = tab.getAttribute('data-tab');
-
+                
                 tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-
+                tabContents.forEach(c => c.classList.remove('active'));
+                
                 tab.classList.add('active');
-                const targetContent = document.getElementById(targetTab);
-                if (targetContent) targetContent.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
             });
         });
 
-        function copyTextToClipboard(scriptId) {
-            const scriptContent = document.querySelector(scriptId).querySelector('pre').innerText;
-            navigator.clipboard.writeText(scriptContent).then(() => {
-                alert('Script copied to clipboard!');
-            }, (err) => {
-                alert('Failed to copy text: ' + err);
+        function copyTextToClipboard(id) {
+            const textToCopy = document.querySelector(id).querySelector('code').textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Copied to clipboard!");
+            }).catch(err => {
+                console.error('Error copying text: ', err);
             });
         }
 
-        document.body.addEventListener('mousemove', function(e) {
-            const paintEffect = document.createElement('div');
-            paintEffect.classList.add('paint-effect');
-            document.body.appendChild(paintEffect);
+        const rainContainer = document.querySelector('.rain');
 
-            paintEffect.style.left = `${e.pageX}px`;
-            paintEffect.style.top = `${e.pageY}px`;
+        function createRaindrop() {
+            const raindrop = document.createElement('div');
+            raindrop.classList.add('raindrop');
+            raindrop.style.left = `${Math.random() * 100}vw`;
+            raindrop.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            rainContainer.appendChild(raindrop);
 
-            setTimeout(() => {
-                paintEffect.remove();
-            }, 1000);
-        });
+            raindrop.addEventListener('animationiteration', () => {
+                raindrop.remove();
+            });
+        }
+
+        setInterval(createRaindrop, 50);
     </script>
 </body>
 </html>
+
