@@ -13,7 +13,6 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #3e3e3e; 
             color: #111010;
             display: flex;
             flex-direction: column;
@@ -21,6 +20,9 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            background-color:#4D4D4D;
+            overflow: hidden;
+            position: relative;
         }
 
         header {
@@ -33,16 +35,31 @@
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
+            animation: moveUpDown 4s ease-in-out infinite;
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         .container {
             width: 100%;
             max-width: 1000px;
-            background-color: #000000; 
+            background-color: #000000;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .tabs {
@@ -70,6 +87,35 @@
 
         .tab.active {
             background-color: #000000;
+            border-bottom: 3px solid #fff;
+            font-weight: bold;
+        }
+
+        .tab[data-tab="premium"] {
+            animation: purplePulsate 2s infinite ease-in-out;
+            color: #000000;
+        }
+
+        @keyframes purplePulsate {
+            0% {
+                background-color: #FBFE5E;
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                background-color: #FBFE5E;
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                background-color: #FBFE5E;
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .tab.active[data-tab="premium"] {
+            background-color: #FBFE5E;
             border-bottom: 3px solid #fff;
             font-weight: bold;
         }
@@ -123,11 +169,11 @@
         code {
             font-size: 16px;
             font-family: 'Courier New', Courier, monospace;
-            color: black; 
+            color: black;
         }
 
         .copy-btn {
-            background-color: #e62e2e; 
+            background-color: #e62e2e;
             border-radius: 8px;
             padding: 8px 16px;
             color: white;
@@ -139,7 +185,7 @@
         }
 
         .copy-btn:hover {
-            background-color: #d22b2b; 
+            background-color: #d22b2b;
         }
 
         .script-section {
@@ -153,12 +199,35 @@
             margin-bottom: 10px;
         }
 
+        .paint-effect {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(128, 0, 128, 0.6);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: paintAnim 1s ease-out forwards;
+        }
+
+        @keyframes paintAnim {
+            0% {
+                transform: scale(0) translate(-50%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2) translate(-50%, -50%);
+                opacity: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
     <header>
         Null Services
     </header>
+
     <div class="container">
         <div class="tabs">
             <div class="tab active" data-tab="home">Home</div>
@@ -234,6 +303,19 @@
                 alert('Failed to copy text: ' + err);
             });
         }
+
+        document.body.addEventListener('mousemove', function(e) {
+            const paintEffect = document.createElement('div');
+            paintEffect.classList.add('paint-effect');
+            document.body.appendChild(paintEffect);
+
+            paintEffect.style.left = `${e.pageX}px`;
+            paintEffect.style.top = `${e.pageY}px`;
+
+            setTimeout(() => {
+                paintEffect.remove();
+            }, 1000);
+        });
     </script>
 </body>
 </html>
