@@ -12,51 +12,72 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #222;
-            color: white;
+            font-family: 'Arial', sans-serif;
+            background-color: #3e3e3e; 
+            color: #111010;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            background-color: #575757;
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
         }
 
         .container {
-            width: 90%;
-            max-width: 800px;
-            background-color: #333;
+            width: 100%;
+            max-width: 1000px;
+            background-color: #000000; 
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
         .tabs {
             display: flex;
-            background-color: #444;
+            background: #5a5a5a;
+            border-bottom: 2px solid #444;
+            justify-content: space-around;
         }
 
         .tab {
-            flex: 1;
-            padding: 15px;
+            padding: 18px 0;
             text-align: center;
             cursor: pointer;
-            color: white;
-            transition: background 0.3s;
+            color: #fffefe;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
         }
 
         .tab:hover {
-            background-color: #555;
+            background-color: #3e3e3e;
+            transform: scale(1.05);
         }
 
         .tab.active {
-            background-color: #666;
+            background-color: #000000;
+            border-bottom: 3px solid #fff;
             font-weight: bold;
         }
 
         .tab-content {
             display: none;
-            padding: 20px;
-            background-color: #222;
+            padding: 30px;
+            background-color: #ffffff;
         }
 
         .tab-content.active {
@@ -66,65 +87,126 @@
         iframe {
             width: 100%;
             height: 315px;
+            border-radius: 8px;
             border: none;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 16px;
             background-color: #444;
-            color: white;
+            color: #fff;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
             background-color: #555;
+            transform: translateY(-2px);
         }
+
+        pre {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-x: auto;
+            word-wrap: normal;
+            margin-bottom: 20px;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        code {
+            font-size: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            color: black; 
+        }
+
+        .copy-btn {
+            background-color: #e62e2e; 
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #d22b2b; 
+        }
+
+        .script-section {
+            margin-bottom: 30px;
+        }
+
+        .script-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
     </style>
 </head>
 <body>
+    <header>
+        Null Services
+    </header>
     <div class="container">
         <div class="tabs">
             <div class="tab active" data-tab="home">Home</div>
-            <div class="tab" data-tab="about">About</div>
             <div class="tab" data-tab="scripts">Scripts</div>
             <div class="tab" data-tab="download">Download</div>
             <div class="tab" data-tab="premium">Premium</div>
             <div class="tab" data-tab="youtubeTab">Reviews</div>
         </div>
+
         <div class="tab-content active" id="home">
             <h2>Welcome</h2>
-        </div>
-        <div class="tab-content" id="about">
-            <h2>About Us</h2>
-            <p>This website is for null services.</p>
+            <p>Welcome to Null Services! Explore our scripts, reviews, and more!</p>
         </div>
         <div class="tab-content" id="scripts">
             <h2>Scripts</h2>
-            <p>--[[Pop It Trading]] loadstring(game:HttpGet("https://nullclient.xyz/pooptradingscriopt.txt"))() .</p>
-            <p>--[[Kat]] loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/0240b48024e9e60231e4640dceb0e5d1/raw/66d86e52fe579ccffc49e33482a9ec84b834eb77/kat"))()</p>
-            <p>--[[Jujutsu Kiasen Shenanigans]] loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/deefdd78e74651a780cab0746f7337e7/raw/500df1bd208d8dbfc5d60f7757434b40df443f7f/jjs%2520script"))()</p>
+            <div class="script-section" id="script1">
+                <div class="script-title">Pop It Trading Script</div>
+                <pre><code>loadstring(game:HttpGet("https://nullclient.xyz/pooptradingscriopt.txt"))()</code></pre>
+                <button class="copy-btn" onclick="copyTextToClipboard('#script1')">Copy Script</button>
+            </div>
+            <div class="script-section" id="script2">
+                <div class="script-title">Kat Script</div>
+                <pre><code>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/0240b48024e9e60231e4640dceb0e5d1/raw/66d86e52fe579ccffc49e33482a9ec84b834eb77/kat"))()</code></pre>
+                <button class="copy-btn" onclick="copyTextToClipboard('#script2')">Copy Script</button>
+            </div>
+            <div class="script-section" id="script3">
+                <div class="script-title">Jujutsu Kaisen Script</div>
+                <pre><code>loadstring(game:HttpGet("https://gist.githubusercontent.com/0NullReference0/deefdd78e74651a780cab0746f7337e7/raw/500df1bd208d8dbfc5d60f7757434b40df443f7f/jjs%2520script"))()</code></pre>
+                <button class="copy-btn" onclick="copyTextToClipboard('#script3')">Copy Script</button>
+            </div>
         </div>
+
         <div class="tab-content" id="download">
             <h2>Download</h2>
-            <button onclick="window.open('https://nullclient.xyz/Boostrapper.zip')">Content Warning Cheat</button>
+            <button onclick="window.open('https://nullclient.xyz/Boostrapper.zip')">Download Content Warning Cheat</button>
         </div>
         <div class="tab-content" id="premium">
             <h2>Premium</h2>
-            <button onclick="window.open('https://discord.gg/EpfaHPrAsH')">Discord</button>
+            <button onclick="window.open('https://discord.gg/EpfaHPrAsH')">Join Our Discord</button>
         </div>
         <div class="tab-content" id="youtubeTab">
-            <h2>Pop It Trading</h2>
+            <h2>Reviews</h2>
             <iframe src="https://www.youtube.com/embed/Psu_WZn8HOA" allowfullscreen></iframe>
             <iframe src="https://www.youtube.com/embed/Jaesl2cQY6Q" allowfullscreen></iframe>
             <h2>Content Warning</h2>
             <iframe src="https://www.youtube.com/embed/2-wlQm9ccRo" allowfullscreen></iframe>
-            
         </div>
+
     </div>
 
     <script>
@@ -143,6 +225,15 @@
                 if (targetContent) targetContent.classList.add('active');
             });
         });
+
+        function copyTextToClipboard(scriptId) {
+            const scriptContent = document.querySelector(scriptId).querySelector('pre').innerText;
+            navigator.clipboard.writeText(scriptContent).then(() => {
+                alert('Script copied to clipboard!');
+            }, (err) => {
+                alert('Failed to copy text: ' + err);
+            });
+        }
     </script>
 </body>
 </html>
